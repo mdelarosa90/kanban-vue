@@ -21,7 +21,8 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="blue darken-1" text @click="closeModal">Cancelar</v-btn>
-          <v-btn color="teal darken-3" text @click="addTask(task)">Guardar</v-btn>
+          <v-btn v-if="!editMode" color="teal darken-3" text @click="addTask(task)">Guardar</v-btn>
+          <v-btn v-else-if="editMode" color="warning darken-3" text @click="editTask(task)">Actualizar</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -43,10 +44,10 @@ export default {
     };
   },
   computed: {
-    ...mapState(["open"])
+    ...mapState(["open", "editMode"])
   },
   methods: {
-    ...mapMutations(["addTask", "closeModal"]),
+    ...mapMutations(["addTask", "closeModal", "editTask"]),
   },
   props: {
     task: {
@@ -58,7 +59,7 @@ export default {
           id: ""
         };
       }
-    }
+    },
   }
 };
 </script>
