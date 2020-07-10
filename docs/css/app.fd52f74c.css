@@ -1,0 +1,1 @@
+.flexBox{height:"100vh"}.flexBox .board{flex-direction:column;width:100%;height:500px;background-color:#000;opacity:.7}.flexBox,.flexBox .board{display:flex;padding:15px}.flexBox{justify-content:space-between;width:"100vh";z-index:-1000;overflow:hidden;margin:0 auto}
