@@ -1,32 +1,46 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+  <v-app>
+    <v-app-bar
+      app
+      color="secondary"
+      dark
+    >
+      <v-toolbar-title>Kanban</v-toolbar-title>
+      <v-spacer></v-spacer>
+
+      <v-btn
+        @click.prevent ="openModal"
+        target="_blank"
+        text
+      >
+        <span class="mr-2">Nueva Tarea</span>
+        <v-icon>mdi-plus</v-icon>
+      </v-btn>
+    </v-app-bar>
+
+    <v-main>
+      <router-view></router-view>
+    </v-main>
+  </v-app>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+import Dashboard from './components/Dashboard';
+import Task from './components/Task';
+import {mapMutations} from 'vuex'
 
-#nav {
-  padding: 30px;
-}
+export default {
+  name: 'App',
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
+  components: {
+    Dashboard,
+    Task
+  },
+  data: () => ({
+    
+  }),
+  methods: {
+    ...mapMutations(['openModal'])
+  }
+};
+</script>
