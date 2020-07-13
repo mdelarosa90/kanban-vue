@@ -1,12 +1,15 @@
 <template>
     <div :id="id" class="board" @dragover.prevent @drop.prevent="drop">
+      <v-card-title class="teal darken-3" dark>
+        <span class="white--text">{{title}}</span>
+      </v-card-title>
         <slot></slot>
     </div>
 </template>
 <script>
 export default {
-  name: "Board",
-  props: ["id"],
+  name: "board",
+  props: ["id", "title"],
   methods: {
       drop: e => {
           const card_id = e.dataTransfer.getData('card_id');
@@ -34,7 +37,12 @@ export default {
   width: 100%;
   height: 500px;
   background-color: black;
+  overflow:auto;
   opacity: 0.7;
   padding: 15px;
+  z-index: -4000;
+}
+.index {
+  z-index: 5000 !important;
 }
 </style>

@@ -1,45 +1,43 @@
 <template>
   <v-container>
     <div class="flexBox">
-       <v-row>
-         <v-col>
-           <Board id="board-1">
+      <v-row id="dashboard">
+        <v-col v-for="column in boards" :key="column.id">
+          <Board id="board-1" :title="column.name">
+            <draggable :list="column.tareas" :animation="200" :sort="true" group="tareas">
               <v-card
-                v-for="(item, index) of tareas"
+                v-for="(item, index) of column.tareas"
                 :key="index"
                 :id="item.id"
-                draggable="true"
-                @dragstart="dragStart"
-                @dragover.stop
                 class="mt-2"
-                @dblclick="editarTarea(item)"
+                @dblclick="editarTarea(item, column.id)"
               >
-                <v-card-title>
+                <v-card-title class="flex-column align-start">
+                  <strong>id: {{item.id}}</strong>
                   <span class="title font-weight-light">{{item.title}}</span>
                 </v-card-title>
                 <v-card-subtitle>{{item.description}}</v-card-subtitle>
               </v-card>
-           </Board>
-         </v-col>
-         <v-col>
-           <Board id="board-2"/>
-
-         </v-col>
-       </v-row>
+            </draggable>
+          </Board>
+        </v-col>
+      </v-row>
     </div>
-    <Task v-bind:task="itemSelected" v-bind:newTask="editMode" />
+    <Task v-bind:task="itemSelected" v-bind:board="boardSelected" v-bind:newTask="editMode" />
   </v-container>
 </template>
 
 <script>
 import { mapState, mapGetters } from "vuex";
+import draggable from "vuedraggable";
 import Task from "./Task";
 import Board from "./Card";
 export default {
   name: "Dashboard",
   components: {
     Task,
-    Board
+    Board,
+    draggable
   },
   data: () => ({
     itemSelected: {
@@ -47,15 +45,19 @@ export default {
       description: "",
       id: ""
     },
-    editMode: true
+    boardSelected: "",
+    editMode: true,
+    newList: true,
+    title: ""
   }),
   computed: {
-    ...mapState(["tareas"]),
+    ...mapState(["boards"]),
     ...mapGetters(["allTasks"])
   },
   methods: {
-    editarTarea(data) {
-      this.itemSelected = { ...data };
+    editarTarea(data, board) {
+      this.itemSelected = { ...data, boardId: board };
+      this.boardSelected = board;
       this.editMode = false;
       this.$store.state.open = true;
       this.$store.state.editMode = true;
@@ -66,7 +68,7 @@ export default {
       setTimeout(() => {
         target.style.display = "none";
       }, 0);
-    }
+    },
   }
 };
 </script>

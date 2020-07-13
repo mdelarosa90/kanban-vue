@@ -1,5 +1,5 @@
 <template>
-  <v-row justify="center">
+   <v-row justify="center">
     <v-dialog v-model="open" persistent max-width="600px">
       <v-card>
         <v-card-title class="teal darken-3" dark>
@@ -10,10 +10,10 @@
           <v-container>
             <v-row>
               <v-col cols="12">
-                <v-text-field label="Titulo" v-model="task.title"></v-text-field>
+                <v-text-field label="Titulo" v-model="list.name"></v-text-field>
               </v-col>
               <v-col cols="12">
-                <v-textarea label="Descripcion" v-model="task.description"></v-textarea>
+                <v-text-field label="Color" v-model="list.headerColor"></v-text-field>
               </v-col>
             </v-row>
           </v-container>
@@ -26,41 +26,23 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-  </v-row>
+  </v-row> 
 </template>
 <script>
 import { mapMutations, mapState } from "vuex";
-import Task from './Task'
 export default {
-  name: "Task",
-  data() {
-    return {
-      //     task: {
-      //         title: '',
-      //         description: '',
-      //         id: ''
-      //     },
-      //     dialog: false,
-    };
-  },
-  computed: {
-    ...mapState(["open", "editMode"])
-  },
-  methods: {
-    ...mapMutations(["addTask", "closeModal", "editTask"]),
-  },
-  props: {
-    task: {
-      type: Object,
-      default: () => {
-        return {
-          title: "",
-          description: "",
-          id: "",
-          boardId: ""
-        };
-      }
-    },
-  }
-};
+    props: {
+        list: {
+            type: Object,
+            default: () => {
+                return {
+                    id: '',
+                    name: '',
+                    headerColor: '',
+                    tareas: []
+                }
+            }
+        }
+    }
+}
 </script>

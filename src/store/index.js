@@ -17,18 +17,23 @@ export default new Vuex.Store({
   state: {
     editMode: false,
     open: false,
-    tareas: [
-      {
-        id:  generateUUID(),
-        title: 'Prueba',
-        description: 'Esto es una prueba'
-      },
-      {
-        id: generateUUID(),
-        title: 'Prueba Dos',
-        description: 'Esto es una segunda prueba'
-      }
-    ]
+    boards: [{
+      id: generateUUID(),
+      name: 'Backlog',
+      headerColor: 'primary',
+      tareas: [
+        {
+          id:  generateUUID(),
+          title: 'Prueba',
+          description: 'Esto es una prueba'
+        },
+        {
+          id: generateUUID(),
+          title: 'Prueba Dos',
+          description: 'Esto es una segunda prueba'
+        }
+      ]
+    }]
   },
   mutations: {
     closeModal(state) {
@@ -41,19 +46,20 @@ export default new Vuex.Store({
     addTask(state, item) {
       const task = {...item, id: generateUUID()};
       state.open = false;
-      return state.tareas = [...state.tareas, task]
+      return state.boards[0].tareas = [...state.boards[0].tareas, task]
     },
     editTask(state, item) {
       state.open = false;
-      return state.tareas = state.tareas.map(task => {
-        if (task.id === item.id) {
-          return {
-            ...task, ...item
-          }
-        } else {
-          return task;
-        }
-      });
+      let board = state.boards.find(b => b.id == item.boardId);
+      delete item.boardId;
+      const itemIdx = board.tareas.findIndex(task => task.id == item.id);
+      Vue.set(board.tareas, itemIdx, item);
+    },
+    addList(state, item) {
+
+    },
+    editList(state, item) {
+      
     }
   },
   actions: {
@@ -61,6 +67,6 @@ export default new Vuex.Store({
   modules: {
   },
   getters: {
-    allTasks: state => state.frutas
+    allTasks: state => state.boards
   }
 })
