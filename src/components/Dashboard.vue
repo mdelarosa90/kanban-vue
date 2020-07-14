@@ -23,7 +23,7 @@
         </v-col>
       </v-row>
     </div>
-    <Task v-bind:task="itemSelected" v-bind:board="boardSelected" v-bind:newTask="editMode" />
+    <Task v-bind:task="itemSelected" v-bind:board="boardSelected" />
     <List />
   </v-container>
 </template>
@@ -49,19 +49,16 @@ export default {
       id: ""
     },
     boardSelected: "",
-    editMode: true,
-    newList: true,
     title: ""
   }),
   computed: {
-    ...mapState(["boards"]),
-    ...mapGetters(["allTasks"])
+    ...mapState(["boards", "editMode"]),
+    ...mapGetters(["allTasks"]),
   },
   methods: {
     editarTarea(data, board) {
       this.itemSelected = { ...data, boardId: board };
       this.boardSelected = board;
-      this.editMode = false;
       this.$store.state.open = true;
       this.$store.state.editMode = true;
     },
@@ -72,6 +69,9 @@ export default {
         target.style.display = "none";
       }, 0);
     },
+  },
+  watch: {
+
   }
 };
 </script>

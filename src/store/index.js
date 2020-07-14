@@ -16,6 +16,7 @@ function generateUUID() {
 export default new Vuex.Store({
   state: {
     editMode: false,
+    editNewList: false,
     open: false,
     openBoard: false,
     boards: [{
@@ -58,7 +59,6 @@ export default new Vuex.Store({
     },
     addList(state, item) {
       const newBoard = {...item, id: generateUUID()};
-      console.log(newBoard);
       state.openBoard = false;
       return state.boards = [...state.boards, newBoard];
     },
@@ -66,7 +66,7 @@ export default new Vuex.Store({
       
     },
     openNewList(state) {
-      state.editMode = false;
+      state.editNewList = false;
       return state.openBoard = true;
     },
     closeEditList(state) {

@@ -21,9 +21,9 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="blue darken-1" text @click="closeEditList">Cancelar</v-btn>
-          <v-btn v-if="!editMode" color="teal darken-3" text @click="addList(list)">Guardar</v-btn>
+          <v-btn v-if="!editNewList" color="teal darken-3" text @click="addList(list)">Guardar</v-btn>
           <v-btn
-            v-else-if="editMode"
+            v-else-if="editNewList"
             color="warning darken-3"
             text
             @click="editList(list)"
@@ -50,7 +50,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(["openBoard", "editMode"])
+    ...mapState(["openBoard", "editNewList"])
   },
   methods: {
     ...mapMutations(["addList", "closeEditList", "editList"])
