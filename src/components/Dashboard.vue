@@ -1,28 +1,26 @@
 <template>
-  <v-container>
-    <div class="flexBox">
-      <v-row id="dashboard">
-        <v-col v-for="column of boards" :key="column.id">
-          <Board id="board-1" :title="column.name" :color="column.headerColor">
-            <draggable :list="column.tareas" :animation="200" :sort="true" :group="column">
+  <v-container fluid style="overflow-x: 'auto'">
+      <v-layout row>
+        <v-flex sm12 md3 v-for="column in boards" :key="column.id" class="ml-5 mt-5">
+          <Board :id="column.id" :title="column.name" :color="column.headerColor">
+            <draggable :list="column.tareas" :animation="200" group="board">
               <v-card
-                v-for="(item, index) of column.tareas"
+                v-for="(item, index) in column.tareas"
                 :key="index"
                 :id="item.id"
                 class="mt-2"
                 @dblclick="editarTarea(item, column.id)"
               >
                 <v-card-title class="flex-column align-start">
-                  <strong>id: {{item.id}}</strong>
-                  <span class="title font-weight-light">{{item.title}}</span>
+                  <span class="text-sm-h5 text-md-subtitle-2">id: {{item.id}}</span>
+                  <span class="title font-weight-light text-sm-h5 text-md-h6" :style="{color: column.headerColor}">{{item.title}}</span>
                 </v-card-title>
                 <v-card-subtitle>{{item.description}}</v-card-subtitle>
               </v-card>
             </draggable>
           </Board>
-        </v-col>
-      </v-row>
-    </div>
+      </v-flex>
+      </v-layout>
     <Task v-bind:task="itemSelected" v-bind:board="boardSelected" />
     <List />
   </v-container>

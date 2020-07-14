@@ -31,16 +31,17 @@ export default {
   margin: 0 auto;
   padding: 15px;
 }
-.flexBox .board {
+.board {
   display: flex;
   flex-direction: column;
   width: 100%;
   height: 500px;
-  background-color: black;
+  background-color: rgba(1, 5, 19, 0.911);
   overflow:auto;
   opacity: 0.7;
   padding: 15px;
-  z-index: -4000;
+  z-index: 0;
+  border-radius: 2mm;
 }
 .index {
   z-index: 5000 !important;

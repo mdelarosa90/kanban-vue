@@ -58,7 +58,7 @@ export default new Vuex.Store({
       Vue.set(board.tareas, itemIdx, item);
     },
     addList(state, item) {
-      const newBoard = {...item, id: generateUUID()};
+      const newBoard = {...item, id: generateUUID(), tareas: []};
       state.openBoard = false;
       return state.boards = [...state.boards, newBoard];
     },
@@ -71,6 +71,9 @@ export default new Vuex.Store({
     },
     closeEditList(state) {
       return state.openBoard = false;
+    },
+    updateList(state, value) {
+      console.log('VALOR', value);
     }
   },
   actions: {
