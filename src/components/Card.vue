@@ -1,6 +1,6 @@
 <template>
-    <div :id="id" class="board" @dragover.prevent @drop.prevent="drop">
-      <v-card-title class="teal darken-3" dark>
+    <div :id="id" class="board">
+      <v-card-title v-bind:style="{backgroundColor: color}">
         <span class="white--text">{{title}}</span>
       </v-card-title>
         <slot></slot>
@@ -9,7 +9,7 @@
 <script>
 export default {
   name: "board",
-  props: ["id", "title"],
+  props: ["id", "title", "color"],
   methods: {
       drop: e => {
           const card_id = e.dataTransfer.getData('card_id');

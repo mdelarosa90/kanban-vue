@@ -2,9 +2,9 @@
   <v-container>
     <div class="flexBox">
       <v-row id="dashboard">
-        <v-col v-for="column in boards" :key="column.id">
-          <Board id="board-1" :title="column.name">
-            <draggable :list="column.tareas" :animation="200" :sort="true" group="tareas">
+        <v-col v-for="column of boards" :key="column.id">
+          <Board id="board-1" :title="column.name" :color="column.headerColor">
+            <draggable :list="column.tareas" :animation="200" :sort="true" :group="column">
               <v-card
                 v-for="(item, index) of column.tareas"
                 :key="index"
@@ -24,6 +24,7 @@
       </v-row>
     </div>
     <Task v-bind:task="itemSelected" v-bind:board="boardSelected" v-bind:newTask="editMode" />
+    <List />
   </v-container>
 </template>
 
@@ -32,12 +33,14 @@ import { mapState, mapGetters } from "vuex";
 import draggable from "vuedraggable";
 import Task from "./Task";
 import Board from "./Card";
+import List from './List';
 export default {
   name: "Dashboard",
   components: {
     Task,
     Board,
-    draggable
+    draggable,
+    List
   },
   data: () => ({
     itemSelected: {
@@ -82,5 +85,11 @@ export default {
   overflow: hidden;
   margin: 0 auto;
   padding: 15px;
+}
+
+.ghost-card {
+  opacity: 0.5;
+  background: #F7FAFC;
+  border: 1px solid #4299e1;
 }
 </style>

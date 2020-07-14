@@ -7,7 +7,14 @@
     >
       <v-toolbar-title>Kanban</v-toolbar-title>
       <v-spacer></v-spacer>
-
+        <v-btn
+          @click.prevent ="openNewList"
+          target="_blank"
+          text
+        >
+        <span class="mr-2">Nueva Lista</span>
+        <v-icon>mdi-plus</v-icon>
+      </v-btn>
       <v-btn
         @click.prevent ="openModal"
         target="_blank"
@@ -40,7 +47,7 @@ export default {
     
   }),
   methods: {
-    ...mapMutations(['openModal'])
+    ...mapMutations(['openModal', 'openNewList'])
   }
 };
 </script>

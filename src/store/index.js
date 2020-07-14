@@ -17,10 +17,11 @@ export default new Vuex.Store({
   state: {
     editMode: false,
     open: false,
+    openBoard: false,
     boards: [{
       id: generateUUID(),
       name: 'Backlog',
-      headerColor: 'primary',
+      headerColor: 'blue',
       tareas: [
         {
           id:  generateUUID(),
@@ -56,10 +57,20 @@ export default new Vuex.Store({
       Vue.set(board.tareas, itemIdx, item);
     },
     addList(state, item) {
-
+      const newBoard = {...item, id: generateUUID()};
+      console.log(newBoard);
+      state.openBoard = false;
+      return state.boards = [...state.boards, newBoard];
     },
     editList(state, item) {
       
+    },
+    openNewList(state) {
+      state.editMode = false;
+      return state.openBoard = true;
+    },
+    closeEditList(state) {
+      return state.openBoard = false;
     }
   },
   actions: {
