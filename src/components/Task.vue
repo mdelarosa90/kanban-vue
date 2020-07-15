@@ -15,12 +15,12 @@
                     label="Titulo"
                     :counter="30"
                     :rules="nameRules"
-                    v-model="task.title"
+                    v-model="taskCopy.title"
                     required
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12">
-                  <v-textarea label="Descripcion" :rules="descriptionRules" v-model="task.description" required></v-textarea>
+                  <v-textarea label="Descripcion" :rules="descriptionRules" v-model="taskCopy.description" required></v-textarea>
                 </v-col>
               </v-row>
             </v-container>
@@ -33,14 +33,14 @@
               :disabled="!valid"
               color="teal darken-3"
               text
-              @click="addTask(task)"
+              @click="añadirTarea()"
             >Guardar</v-btn>
             <v-btn
               v-else-if="editMode"
               color="warning darken-3"
               text
               :disabled="!valid"
-              @click="editTask(task)"
+              @click="editTask(taskCopy)"
             >Actualizar</v-btn>
           </v-card-actions>
         </v-form>
@@ -67,10 +67,16 @@ export default {
     }
   },
   computed: {
-    ...mapState(["open", "editMode"])
+    ...mapState(["open", "editMode"]),
+    taskCopy(){
+      return {...this.task}
+    }
   },
   methods: {
-    ...mapMutations(["addTask", "closeModal", "editTask"])
+    ...mapMutations(["addTask", "closeModal", "editTask"]),
+    añadirTarea() {
+      this.$store.commit('addTask', this.taskCopy);
+    }
   },
   data: () => {
     return {
@@ -81,7 +87,7 @@ export default {
       ],
       descriptionRules: [
         v => !!v || "Description is required"
-      ]
+      ],
     };
   }
 };

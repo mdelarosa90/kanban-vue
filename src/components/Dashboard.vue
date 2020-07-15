@@ -32,7 +32,7 @@
         </Board>
       </div>
     </div>
-    <Task v-bind:task="itemSelected" v-bind:board="boardSelected" />
+    <Task v-bind:task="editMode ? itemSelected : defaultItem" v-bind:board="boardSelected" />
     <List />
   </v-container>
 </template>
@@ -57,18 +57,24 @@ export default {
       description: "",
       id: ""
     },
+    defaultItem: {
+      title: '',
+      description: '',
+      id: '',
+      boardId: ''
+    },
     boardSelected: "",
     title: ""
   }),
   computed: {
     ...mapState(["boards", "editMode"]),
-    ...mapGetters(["allTasks"])
+    ...mapGetters(["allTasks"]),
   },
   methods: {
     editarTarea(data, board) {
+      this.$store.state.open = true;
       this.itemSelected = { ...data, boardId: board };
       this.boardSelected = board;
-      this.$store.state.open = true;
       this.$store.state.editMode = true;
     },
     dragStart: e => {
@@ -79,7 +85,6 @@ export default {
       }, 0);
     }
   },
-  watch: {}
 };
 </script>
 

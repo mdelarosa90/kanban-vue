@@ -3,7 +3,7 @@
       <v-card-title v-bind:style="{backgroundColor: color}">
         <span class="white--text">{{title}}</span>
       </v-card-title>
-        <slot></slot>
+      <slot></slot>
     </div>
 </template>
 <script>
@@ -42,6 +42,11 @@ export default {
   padding: 15px;
   z-index: 0;
   border-radius: 2mm;
+}
+.overflow {
+  overflow: auto;
+  padding-right: 10px;
+  padding-top: 5px;
 }
 .index {
   z-index: 5000 !important;

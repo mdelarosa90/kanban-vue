@@ -39,6 +39,7 @@ export default new Vuex.Store({
   },
   mutations: {
     closeModal(state) {
+      state.editMode = false;
       return state.open = false;
     },
     openModal(state) {
@@ -48,10 +49,12 @@ export default new Vuex.Store({
     addTask(state, item) {
       const task = {...item, id: generateUUID()};
       state.open = false;
+      state.editMode = false;
       return state.boards[0].tareas = [...state.boards[0].tareas, task]
     },
     editTask(state, item) {
       state.open = false;
+      state.editMode = false;
       let board = state.boards.find(b => b.id == item.boardId);
       delete item.boardId;
       const itemIdx = board.tareas.findIndex(task => task.id == item.id);
