@@ -1,42 +1,52 @@
 <template>
-  <v-container fluid style="overflow-x: 'auto'">
+  <v-container fluid class="board-main-content">
     <div class="board-canvas">
-      <div v-for="column in boards" :key="column.id" class="ml-5 mt-5 board-list">
-        <Board :data="column">
-          <draggable
-            :list="column.tareas"
-            ghost-class="ghost-card"
-            :empty-insert-threshold="100"
-            :animation="200"
-            group="board"
-            @start="drag=true"
-            @end="drag=false"
-          >
-            <v-card
-              v-for="(item, index) in column.tareas"
-              :key="index"
-              :id="item.id"
-              class="mt-2"
-              @dblclick="editarTarea(item, column.id)"
+      <draggable
+        :list="boards"
+        ghost-class="ghost-card"
+        :empty-insert-threshold="100"
+        :animation="200"
+        group="dashboard"
+        @start="drag=true"
+        @end="drag=false"
+      >
+        <div v-for="column in boards" :key="column.id" class="ml-5 mt-5 board-list">
+          <Board :data="column">
+            <draggable
+              :list="column.tareas"
+              ghost-class="ghost-card"
+              :empty-insert-threshold="100"
+              :animation="200"
+              group="board"
+              @start="drag=true"
+              @end="drag=false"
             >
-              <v-card-title class="flex-column align-start pointer">
-                <span class="text-sm-h5 text-md-subtitle-2">id: {{item.id}}</span>
-                <span
-                  class="title font-weight-light text-sm-h5 text-md-h6"
-                  :style="{color: column.headerColor}"
-                >{{item.title}}</span>
-              </v-card-title>
-              <v-card-subtitle>{{item.description}}</v-card-subtitle>
-            </v-card>
-            <v-flex class="d-flex align-content-end">
-              <v-divider></v-divider>
-              <v-btn class="ma-2" text icon :color="column.headerColor" @click="editList(column)">
-                <v-icon>mdi-pencil</v-icon>
-              </v-btn>
-            </v-flex>
-          </draggable>
-        </Board>
-      </div>
+              <v-card
+                v-for="(item, index) in column.tareas"
+                :key="index"
+                :id="item.id"
+                class="mt-2"
+                @dblclick="editarTarea(item, column.id)"
+              >
+                <v-card-title class="flex-column align-start pointer">
+                  <span class="text-sm-h5 text-md-subtitle-2">id: {{item.id}}</span>
+                  <span
+                    class="title font-weight-light text-sm-h5 text-md-h6"
+                    :style="{color: column.headerColor}"
+                  >{{item.title}}</span>
+                </v-card-title>
+                <v-card-subtitle>{{item.description}}</v-card-subtitle>
+              </v-card>
+              <v-flex class="d-flex align-content-end">
+                <v-divider></v-divider>
+                <v-btn class="ma-2" text icon :color="column.headerColor" @click="editList(column)">
+                  <v-icon>mdi-pencil</v-icon>
+                </v-btn>
+              </v-flex>
+            </draggable>
+          </Board>
+        </div>
+      </draggable>
     </div>
     <Task v-bind:task="editMode ? itemSelected : defaultItem" v-bind:board="boardSelected" />
     <List v-bind:list="editNewList ? defaultBoard : emptyBoard" />
@@ -145,6 +155,14 @@ export default {
   display: inline-block;
   vertical-align: top;
   white-space: nowrap;
+}
+
+.board-main-content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-right: 0;
+  transition: margin 0.1s ease-in;
 }
 
 /* width */
