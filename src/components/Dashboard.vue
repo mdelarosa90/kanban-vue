@@ -2,7 +2,7 @@
   <v-container fluid style="overflow-x: 'auto'">
     <div class="board-canvas">
       <div v-for="column in boards" :key="column.id" class="ml-5 mt-5 board-list">
-        <Board :id="column.id" :title="column.name" :color="column.headerColor">
+        <Board :data="column">
           <draggable
             :list="column.tareas"
             ghost-class="ghost-card"
@@ -19,7 +19,7 @@
               class="mt-2"
               @dblclick="editarTarea(item, column.id)"
             >
-              <v-card-title class="flex-column align-start">
+              <v-card-title class="flex-column align-start pointer">
                 <span class="text-sm-h5 text-md-subtitle-2">id: {{item.id}}</span>
                 <span
                   class="title font-weight-light text-sm-h5 text-md-h6"
@@ -28,12 +28,18 @@
               </v-card-title>
               <v-card-subtitle>{{item.description}}</v-card-subtitle>
             </v-card>
+            <v-flex class="d-flex align-content-end">
+              <v-divider></v-divider>
+              <v-btn class="ma-2" text icon :color="column.headerColor" @click="editList(column)">
+                <v-icon>mdi-pencil</v-icon>
+              </v-btn>
+            </v-flex>
           </draggable>
         </Board>
       </div>
     </div>
     <Task v-bind:task="editMode ? itemSelected : defaultItem" v-bind:board="boardSelected" />
-    <List />
+    <List v-bind:list="editNewList ? defaultBoard : emptyBoard" />
   </v-container>
 </template>
 
@@ -58,17 +64,25 @@ export default {
       id: ""
     },
     defaultItem: {
-      title: '',
-      description: '',
-      id: '',
-      boardId: ''
+      title: "",
+      description: "",
+      id: "",
+      boardId: ""
+    },
+    defaultBoard: {
+      name: "",
+      headerColor: "",
+      tareas: []
     },
     boardSelected: "",
     title: ""
   }),
   computed: {
-    ...mapState(["boards", "editMode"]),
+    ...mapState(["boards", "editMode", "editNewList"]),
     ...mapGetters(["allTasks"]),
+    emptyBoard() {
+      return { name: "", headerColor: "", id: "", tareas: [] };
+    }
   },
   methods: {
     editarTarea(data, board) {
@@ -77,6 +91,11 @@ export default {
       this.boardSelected = board;
       this.$store.state.editMode = true;
     },
+    editList(data) {
+      this.defaultBoard = { ...data };
+      this.$store.state.editNewList = true;
+      this.$store.state.openBoard = true;
+    },
     dragStart: e => {
       const target = e.target;
       e.dataTransfer.setData("card_id", target.id);
@@ -84,7 +103,7 @@ export default {
         target.style.display = "none";
       }, 0);
     }
-  },
+  }
 };
 </script>
 
@@ -157,5 +176,17 @@ export default {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
+}
+
+.emphasize-max {
+  z-index: 2000 !important;
+}
+
+.emphasize-min {
+  z-index: 0 !important;
+}
+
+.pointer {
+  cursor: "pointer" !important;
 }
 </style>

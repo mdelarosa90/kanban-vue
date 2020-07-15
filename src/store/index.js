@@ -22,7 +22,7 @@ export default new Vuex.Store({
     boards: [{
       id: generateUUID(),
       name: 'Backlog',
-      headerColor: 'blue',
+      headerColor: '#1C0DF7ED',
       tareas: [
         {
           id:  generateUUID(),
@@ -65,18 +65,19 @@ export default new Vuex.Store({
       state.openBoard = false;
       return state.boards = [...state.boards, newBoard];
     },
-    editList(state, item) {
-      
-    },
     openNewList(state) {
       state.editNewList = false;
       return state.openBoard = true;
     },
     closeEditList(state) {
+      state.editNewList = false;
       return state.openBoard = false;
     },
     updateList(state, value) {
-      console.log('VALOR', value);
+      state.openBoard = false;
+      state.editNewList = false;
+      const indexBoard = state.boards.findIndex(b => b.id === value.id);
+      Vue.set(state.boards, indexBoard, value)
     }
   },
   actions: {
@@ -84,6 +85,7 @@ export default new Vuex.Store({
   modules: {
   },
   getters: {
-    allTasks: state => state.boards
+    allTasks: state => state.boards,
+    listEdit: state => state.editNewList
   }
 })

@@ -33,7 +33,7 @@
               v-else-if="editNewList"
               color="warning darken-3"
               text
-              @click="editList(list)"
+              @click="updateList(list)"
             >Actualizar</v-btn>
           </v-card-actions>
         </v-form>
@@ -42,7 +42,7 @@
   </v-row>
 </template>
 <script>
-import { mapMutations, mapState } from "vuex";
+import { mapMutations, mapState, mapGetters } from "vuex";
 export default {
   props: {
     list: {
@@ -68,10 +68,13 @@ export default {
     };
   },
   computed: {
-    ...mapState(["openBoard", "editNewList"])
+    ...mapState(["openBoard", "editNewList"]),
+    listCopy() {
+      return {...this.list}
+    }
   },
   methods: {
-    ...mapMutations(["addList", "closeEditList", "editList"])
+    ...mapMutations(["addList", "closeEditList", "updateList"])
   }
 };
 </script>
