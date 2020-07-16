@@ -5,7 +5,11 @@
       color="secondary"
       dark
     >
-      <v-toolbar-title>Kanban</v-toolbar-title>
+       <router-link text icon color="white" class="mr-2" :to="{name: 'Home'}">
+          <v-icon>mdi-home</v-icon>
+        </router-link>
+      <v-toolbar-title v-if="!edit" @click.prevent="edit = true">{{name}}</v-toolbar-title>
+      <v-text-field v-if="edit" v-model="name" @keyup.enter="changeName"></v-text-field>
       <v-spacer></v-spacer>
         <v-btn
           @click.prevent ="openNewList"
@@ -44,10 +48,32 @@ export default {
     Task
   },
   data: () => ({
-    
+    name: 'Kanban',
+    edit: false
   }),
   methods: {
-    ...mapMutations(['openModal', 'openNewList'])
-  }
+    ...mapMutations(['openModal', 'openNewList']),
+    changeName(){
+      this.edit = false;
+    }
+  },
+  watch: {
+     '$route':{
+        handler: (to, from) => {
+          document.title = to.meta.title || 'Vue-project'
+        },
+         immediate: true
+      }
+    },
 };
 </script>
+
+<style>
+    .router-link-active {
+      background-color: transparent;
+      cursor: pointer;
+    }
+    .v-application a{
+      color: rgba(82, 140, 207, 0.616) !important;
+    }
+</style>

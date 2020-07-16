@@ -138,7 +138,7 @@ export default {
   white-space: nowrap;
   margin-bottom: 8px;
   overflow-x: auto;
-  overflow-y: hidden;
+  overflow-y: auto;
   padding-bottom: 8px;
   position: absolute;
   top: 0;
