@@ -2,7 +2,6 @@
     <div :id="data.id" class="board pointer">
       <v-card-title v-bind:style="{backgroundColor: data.headerColor}">
         <span class="white--text">{{data.name}}</span>
-        <v-divider></v-divider>
         <!-- <v-menu bottom left>
             <template v-slot:activator="{ on, attrs }">
               <v-btn

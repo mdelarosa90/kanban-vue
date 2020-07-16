@@ -10,7 +10,7 @@
         @start="drag=true"
         @end="drag=false"
       >
-        <div v-for="column in boards" :key="column.id" class="ml-5 mt-5 board-list">
+        <div v-for="column in boards" :key="column.id" class="mt-5 board-list">
           <Board :data="column">
             <draggable
               :list="column.tareas"
@@ -168,6 +168,7 @@ export default {
 /* width */
 ::-webkit-scrollbar {
   width: 10px;
+  height: 10px;
   background-color: #f5f5f5;
 }
 
@@ -189,6 +190,11 @@ export default {
     color-stop(0.72, rgb(73, 185, 189)),
     color-stop(0.86, rgb(28, 134, 148))
   );
+}
+
+::-webkit-scrollbar-thumb:horizontal {
+  border-radius: 10px;
+  background-image:  linear-gradient(45deg, rgba(96, 215, 231, 0.733) 46%, rgba(27, 233, 240, 0.678) 54%, rgba(28,134,148,1) 100%);
 }
 
 /* Handle on hover */
