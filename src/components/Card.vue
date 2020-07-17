@@ -1,7 +1,7 @@
 <template>
     <div :id="data.id" class="board pointer">
       <v-card-title v-bind:style="{backgroundColor: data.headerColor}">
-        <span class="white--text">{{data.name}}</span>
+        <span class="white--text text-truncate" style="max-width: 80%">{{data.name}}</span>
         <!-- <v-menu bottom left>
             <template v-slot:activator="{ on, attrs }">
               <v-btn
@@ -85,22 +85,14 @@ export default {
 </script>
 
 <style>
-.flexBox {
-  display: flex;
-  justify-content: space-between;
-  width: "100vh";
-  height: "100vh";
-  overflow: hidden;
-  margin: 0 auto;
-  padding: 15px;
-}
 .board {
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 500px;
+  max-height: 600px;
   background-color: rgba(1, 5, 19, 0.911);
-  overflow:auto;
+  overflow-y: auto;
+  overflow-x: hidden;
   opacity: 0.85;
   padding: 15px;
   z-index: 0;

@@ -80,7 +80,7 @@ export default {
     .red {
       background-image: url('./assets/background.jpg');
       background-size: cover;
-      background-attachment: scroll !important;
-      color: 'red';
+      background-repeat: no-repeat;
+      overflow: auto !important;
     }
 </style>
