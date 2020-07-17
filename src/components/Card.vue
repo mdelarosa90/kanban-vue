@@ -101,7 +101,7 @@ export default {
   height: 500px;
   background-color: rgba(1, 5, 19, 0.911);
   overflow:auto;
-  opacity: 0.7;
+  opacity: 0.85;
   padding: 15px;
   z-index: 0;
   border-radius: 2mm;

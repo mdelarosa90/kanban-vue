@@ -7,7 +7,7 @@
           <span class="headline white--text">Edición de Listas</span>
         </v-card-title>
         <v-form ref="form" v-model="valid">
-          <v-card-text>
+          <v-card-text class="pa-0">
             <v-container>
               <v-row>
                 <v-col cols="12">

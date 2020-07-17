@@ -149,7 +149,7 @@ export default {
 
 .board-list {
   width: 350px;
-  margin: 0 4px;
+  margin: 0 6px;
   height: 100%;
   box-sizing: border-box;
   display: inline-block;

@@ -2,7 +2,7 @@
   <v-app>
     <v-app-bar
       app
-      color="secondary"
+      color="rgba(1, 5, 19, 0.911)"
       dark
     >
        <router-link text icon color="white" class="mr-2" :to="{name: 'Home'}">
@@ -16,20 +16,21 @@
           target="_blank"
           text
         >
-        <span class="mr-2">Nueva Lista</span>
+        <span class="mr-1">Nueva Lista</span>
         <v-icon>mdi-plus</v-icon>
       </v-btn>
       <v-btn
         @click.prevent ="openModal"
         target="_blank"
         text
+        class="pa-2"
       >
-        <span class="mr-2">Nueva Tarea</span>
+        <span class="mr-1">Nueva Tarea</span>
         <v-icon>mdi-plus</v-icon>
       </v-btn>
     </v-app-bar>
 
-    <v-main>
+    <v-main class="red">
       <router-view></router-view>
     </v-main>
   </v-app>
@@ -75,5 +76,11 @@ export default {
     }
     .v-application a{
       color: rgba(82, 140, 207, 0.616) !important;
+    }
+    .red {
+      background-image: url('./assets/background.jpg');
+      background-size: cover;
+      background-attachment: scroll !important;
+      color: 'red';
     }
 </style>
