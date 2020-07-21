@@ -7,8 +7,9 @@
         :empty-insert-threshold="100"
         :animation="200"
         group="dashboard"
+        :forceFallback="true"
         @start="drag=true"
-        @end="drag=false"
+        :sort="true"
       >
         <div v-for="column in boards" :key="column.id" class="mt-5 board-list">
           <Board :data="column">
@@ -19,7 +20,9 @@
               :animation="200"
               group="board"
               @start="drag=true"
-              @end="drag=false"
+              :sort="true"
+              :forceFallback="true"
+              :handle="v-card"
             >
               <v-card
                 v-for="(item, index) in column.tareas"
@@ -161,6 +164,7 @@ export default {
   height: 100%;
   display: flex;
   flex-direction: column;
+  overflow: auto;
   margin-right: 0;
   transition: margin 0.1s ease-in;
 }
