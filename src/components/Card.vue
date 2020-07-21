@@ -89,7 +89,7 @@ export default {
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-height: 600px;
+  max-height: 500px;
   background-color: rgba(1, 5, 19, 0.911);
   overflow-y: auto;
   overflow-x: hidden;
